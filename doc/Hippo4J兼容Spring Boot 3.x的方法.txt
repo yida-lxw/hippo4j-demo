@@ -1,0 +1,21 @@
+1. hippo4j-spring-boot-starter模块下的src/main/resources/META-INF/spring.factories文件删除
+2. hippo4j-spring-boot-starter模块下的src/main/resources下新建META-INF目录，META-INF目录下新建spring目录
+3. hippo4j-spring-boot-starter模块下的src/main/resources/META-INF/spring目录下新建org.springframework.boot.autoconfigure.AutoConfiguration.imports配置文件
+4. org.springframework.boot.autoconfigure.AutoConfiguration.imports配置文件中添加如下内容：
+   cn.hippo4j.springboot.starter.config.DynamicThreadPoolAutoConfiguration
+5. DynamicThreadPoolAutoConfiguration类需要实现ApplicationContextAware接口
+   public class CustomDynamicThreadPoolAutoConfiguration implements ApplicationContextAware {
+    private ApplicationContext applicationContext;
+6. 重写DynamicThreadPoolAutoConfiguration类的applicationContentPostProcessor方法，将applicationContext实例注入给ApplicationContentPostProcessor实例
+   @Bean
+    public ApplicationContentPostProcessor applicationContentPostProcessor() {
+        ApplicationContentPostProcessor applicationContentPostProcessor =
+                new ApplicationContentPostProcessor();
+        applicationContentPostProcessor.setApplicationContext(this.applicationContext);
+        return applicationContentPostProcessor;
+    }
+
+7. 由于ApplicationContentPostProcessor类并没有提供修改ApplicationContext applicationContext属性的方法，故最后还需要为ApplicationContentPostProcessor类添加setApplicationContext方法
+	public void setApplicationContext(ApplicationContext applicationContext) {
+	        this.applicationContext = applicationContext;
+	}

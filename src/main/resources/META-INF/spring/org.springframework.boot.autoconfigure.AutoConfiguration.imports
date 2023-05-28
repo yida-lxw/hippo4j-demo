@@ -1,0 +1,2 @@
+cn.hippo4j.springboot.starter.config.CustomDynamicThreadPoolAutoConfiguration
+cn.hippo4j.common.extension.support.ExtensionAutoConfiguration

@@ -1,0 +1,20 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    active: dev
+  application:
+    name: hippo4j-demo
+  dynamic:
+    thread-pool:
+      enable: true
+      # 服务端地址
+      server-addr: http://localhost:6691
+      # 用户名
+      username: admin
+      # 密码
+      password: 123456
+      # 租户 id, 对应 tenant 表
+      namespace: Technology-Department
+      # 项目 id, 对应 item 表
+      item-id: hippo4j-demo
